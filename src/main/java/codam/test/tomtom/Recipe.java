@@ -1,14 +1,25 @@
 package codam.test.tomtom;
 
+import java.sql.Types;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
-
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.usertype.UserType;
+import org.springframework.beans.factory.annotation.Value;
+
 
 @Entity
+@Table(name="Recipes")
 class Recipe {
-    private @Id @GeneratedValue Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
+    @Value("${some.key:meat,fish,seafood,vegetarian,vegan,raw}")
     private String type;
+    @Column(name="number_of_servings")
     private Long numberOfServings;
     private String ingredients;
     @Lob
@@ -18,6 +29,7 @@ class Recipe {
     public Recipe() {}
 
     Recipe(String name, String type, Long numberOfServings, String ingredients, String description) {
+
         this.name = name;
         this.type = type;
         this.numberOfServings = numberOfServings;
